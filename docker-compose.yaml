@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+    #my app
+    app:
+        container_name: app
+        build:
+            context: .
+            cache_from:
+                - golang:alpine
+        restart: always
+
+    #MySQL database
+    mysqldb:
+        container_name: MySQLdb
+        image: mysql
+        restart: always
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: "gold_panel"
+            MYSQL_USER: "app"
+            MYSQL_PASSWORD: "app-password"
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "--silent"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
+
+    #PHPMyAdmin for MySQL
+    phpmyadmin:
+        container_name: PHPMyAdmin
+        image: phpmyadmin
+        ports:
+            - 80:80
+        environment:
+            PMA_HOST: mysqldb
+
+    #Migrate DB
+    migrate:
+        container_name: db_migration
+        image: migrate/migrate
+        volumes:
+            - ./internal/repo/migration:/migration
+        command:
+            [
+                "-path",
+                "/migration",
+                "-database",
+                "mysql://root:root@tcp(mysqldb:3306)/gold_panel",
+                "up",
+            ]
+        depends_on:
+            mysqldb:
+                condition: service_healthy
