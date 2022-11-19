@@ -8,9 +8,18 @@ type Config struct {
 	} `mapstructure:"panel"`
 }
 
-var config Config
+type Env struct {
+	MySQLUser     string `mapstructure:"MYSQL_USER"`
+	MySQLPassword string `mapstructure:"MYSQL_PASSWORD"`
+	MySQLDBName   string `mapstructure:"MYSQL_DBNAME"`
+}
 
-func LoadFrom(path string) {
+var (
+	config *Config
+	env    *Env
+)
+
+func LoadConfigFrom(path string) {
 	viper.AddConfigPath(path)
 
 	viper.SetConfigType("yaml")
@@ -25,6 +34,26 @@ func LoadFrom(path string) {
 	}
 }
 
-func Get() *Config {
-	return &config
+func LoadEnvFrom(path string) {
+	viper.AddConfigPath(path)
+
+	viper.SetConfigType("env")
+	viper.SetConfigName(".env")
+	viper.AutomaticEnv()
+
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+
+	if err := viper.Unmarshal(&env); err != nil {
+		panic(err)
+	}
+}
+
+func GetConfig() *Config {
+	return config
+}
+
+func GetEnv() *Env {
+	return env
 }

@@ -7,7 +7,7 @@ import (
 
 type IApplication interface {
 	ApplicationInsert(ctx context.Context, dto *ApplicationInsertDTO) (insertID int64, err error)
-	ApplicationGet(ctx context.Context, dto *ApplicationAcceptDTO) (model *entity.Application, err error)
+	ApplicationGet(ctx context.Context, dto *ApplicationGetDTO) (model *entity.Application, err error)
 	ApplicationAccept(ctx context.Context, dto *ApplicationAcceptDTO) (affected int64, err error)
 	ApplicationDiscard(ctx context.Context, dto *ApplicationDiscardDTO) (affected int64, err error)
 	ApplicationSelect(ctx context.Context, dto *ApplicationSelectDTO) (arr []entity.Application, err error)
@@ -37,7 +37,7 @@ type ApplicationGetDTO struct {
 	KeyID string
 }
 
-func (r *Repo) ApplicationGet(ctx context.Context, dto *ApplicationAcceptDTO) (*entity.Application, error) {
+func (r *Repo) ApplicationGet(ctx context.Context, dto *ApplicationGetDTO) (*entity.Application, error) {
 	var model entity.Application
 
 	query := `

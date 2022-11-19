@@ -15,12 +15,12 @@ import (
 )
 
 func RunBot(service service.IService) {
-	bot, err := tgbotapi.NewBotAPI(config.Get().Panel.BotToken)
+	bot, err := tgbotapi.NewBotAPI(config.GetConfig().Panel.BotToken)
 	if err != nil {
 		panic(err)
 	}
 
-	message := tgbotmessage.NewHandler(actstore.NewStore(
+	messageHandler := tgbotmessage.NewHandler(actstore.NewStore(
 		context.Background(),
 		actstore.Options{
 			ActionLifetime: time.Hour * 2,
@@ -28,9 +28,8 @@ func RunBot(service service.IService) {
 		},
 	))
 
-	controller.
-		NewTGBotPanel(bot, service).
-		Register(message)
+	controller.NewTGBotPanel(bot, service, messageHandler).
+		Register()
 
 	u := tgbotapi.NewUpdate(0)
 	updates := bot.GetUpdatesChan(u)
@@ -42,7 +41,7 @@ func RunBot(service service.IService) {
 		}
 
 		if update.Message != nil {
-			message.Handle(update)
+			messageHandler.Handle(update)
 		}
 	}
 }

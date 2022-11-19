@@ -1,7 +1,5 @@
 package controller
 
-import "gold-panel/pkg/tgbotmessage"
-
-func (c *controller) Register(h *tgbotmessage.Handler) {
-	h.Add("/me", c.Commad.Me)
+func (c *controller) Register() {
+	c.hanler.Add("/me", c.CmdMe)
 }

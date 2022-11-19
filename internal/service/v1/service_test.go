@@ -1,21 +1,26 @@
-package panel
+package service
 
 import (
 	"gold-panel/config"
 	"gold-panel/internal/repo"
-	service "gold-panel/internal/service/v1"
+	"testing"
 
 	"github.com/go-redis/redis/v9"
 )
 
-func Launch() {
+func init() {
+	config.LoadConfigFrom("../../../config")
+	config.LoadEnvFrom("../../../")
+}
+
+func newService(t *testing.T) *Service {
 	redisdb := redis.NewClient(&redis.Options{
-		Addr: "redisdb:6379",
+		Addr: "localhost:6379",
 	})
 
 	repository := repo.NewRepo(
 		&repo.Source{
-			Host:     "mysqldb",
+			Host:     "localhost",
 			Port:     "3306",
 			User:     config.GetEnv().MySQLUser,
 			Password: config.GetEnv().MySQLPassword,
@@ -23,6 +28,12 @@ func Launch() {
 		},
 	)
 
-	service := service.NewService(repository, redisdb)
-	RunBot(service)
+	return &Service{
+		repo:  repository,
+		redis: redisdb,
+	}
+}
+
+func TestNewService(t *testing.T) {
+	newService(t)
 }

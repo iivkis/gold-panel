@@ -3,7 +3,11 @@ version: "3.9"
 services:
     app:
         container_name: app_prod
-        
+
+    redisdb:
+        volumes:
+            - "./volumes/redis:/data"
+
     mysqldb:
         volumes:
             - "./volumes/db:/var/lib/mysql"

@@ -8,7 +8,7 @@ import (
 )
 
 func TestConfig(t *testing.T) {
-	LoadFrom(".")
+	LoadConfigFrom(".")
 	fmt.Println(config)
 	require.NotEmpty(t, config.Panel.BotToken)
 }

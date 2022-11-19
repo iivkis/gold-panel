@@ -4,6 +4,10 @@ services:
     app:
         container_name: app_dev
 
+    redisdb:
+        ports:
+            - 6379:6379
+
     mysqldb:
         ports:
             - 3306:3306

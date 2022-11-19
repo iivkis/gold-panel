@@ -9,6 +9,9 @@ import (
 
 func main() {
 	logrus.Info("Panel running...")
-	config.LoadFrom("./config")
+
+	config.LoadConfigFrom("./config")
+	config.LoadEnvFrom(".")
+
 	panel.Launch()
 }

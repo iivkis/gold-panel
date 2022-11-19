@@ -2,16 +2,21 @@ package controller
 
 import (
 	"gold-panel/internal/service/v1"
+	"gold-panel/pkg/tgbotmessage"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 type controller struct {
-	Commad *CommandController
+	bot     *tgbotapi.BotAPI
+	service service.IService
+	hanler  *tgbotmessage.Handler
 }
 
-func NewTGBotPanel(bot *tgbotapi.BotAPI, serice service.IService) *controller {
+func NewTGBotPanel(bot *tgbotapi.BotAPI, serice service.IService, handler *tgbotmessage.Handler) *controller {
 	return &controller{
-		Commad: NewCommandController(bot),
+		bot:     bot,
+		service: serice,
+		hanler:  handler,
 	}
 }

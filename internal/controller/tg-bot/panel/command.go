@@ -7,17 +7,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-type CommandController struct {
-	bot *tgbotapi.BotAPI
-}
-
-func NewCommandController(bot *tgbotapi.BotAPI) *CommandController {
-	return &CommandController{
-		bot: bot,
-	}
-}
-
-func (c *CommandController) Me(upd tgbotapi.Update) (next bool) {
+func (c *controller) CmdMe(upd tgbotapi.Update) (next bool) {
 	resp := tgbotapi.NewMessage(
 		upd.SentFrom().ID,
 		fmt.Sprintf("ID: <code>%d</code>", upd.SentFrom().ID),
@@ -27,3 +17,7 @@ func (c *CommandController) Me(upd tgbotapi.Update) (next bool) {
 	c.bot.Send(resp)
 	return
 }
+
+// func (c *controller) Start(upd tgbotapi.BotAPI) (next bool) {
+
+// }

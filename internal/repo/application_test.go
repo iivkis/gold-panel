@@ -102,7 +102,7 @@ func TestRepo_ApplicationAccept(t *testing.T) {
 		{
 			application, err := repo.ApplicationGet(
 				context.Background(),
-				&ApplicationAcceptDTO{
+				&ApplicationGetDTO{
 					KeyID: item.dto.KeyID,
 				},
 			)
@@ -161,7 +161,7 @@ func TestRepo_ApplicationDiscard(t *testing.T) {
 		{
 			application, err := repo.ApplicationGet(
 				context.Background(),
-				&ApplicationAcceptDTO{
+				&ApplicationGetDTO{
 					KeyID: item.dto.KeyID,
 				},
 			)
@@ -300,7 +300,7 @@ func TestRepo_ApplicationGet(t *testing.T) {
 		{
 			application, err := repo.ApplicationGet(
 				context.Background(),
-				&ApplicationAcceptDTO{
+				&ApplicationGetDTO{
 					KeyID: item.dto.KeyID,
 				},
 			)

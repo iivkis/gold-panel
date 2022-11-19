@@ -9,18 +9,27 @@ services:
             cache_from:
                 - golang:alpine
         restart: always
+        depends_on:
+            migrate:
+                condition: service_completed_successfully
 
-    #MySQL database
+    #Redis Database
+    redisdb:
+        container_name: RedisDB
+        image: redis:alpine
+        restart: always
+
+    #MySQL Database
     mysqldb:
         container_name: MySQLdb
         image: mysql
         restart: always
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: "gold_panel"
-            MYSQL_USER: "app"
-            MYSQL_PASSWORD: "app-password"
+            MYSQL_RANDOM_ROOT_PASSWORD: yes
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_DATABASE: $MYSQL_DBNAME
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "--silent"]
             interval: 5s
@@ -47,7 +56,7 @@ services:
                 "-path",
                 "/migration",
                 "-database",
-                "mysql://root:root@tcp(mysqldb:3306)/gold_panel",
+                "mysql://$MYSQL_USER:$MYSQL_PASSWORD@tcp(mysqldb:3306)/$MYSQL_DBNAME",
                 "up",
             ]
         depends_on:

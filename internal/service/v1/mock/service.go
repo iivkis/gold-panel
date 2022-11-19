@@ -6,6 +6,7 @@ package mock_service
 
 import (
 	context "context"
+	entity "gold-panel/internal/entity"
 	service "gold-panel/internal/service/v1"
 	reflect "reflect"
 
@@ -33,6 +34,124 @@ func NewMockIService(ctrl *gomock.Controller) *MockIService {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockIService) EXPECT() *MockIServiceMockRecorder {
 	return m.recorder
+}
+
+// ApplicationAccept mocks base method.
+func (m *MockIService) ApplicationAccept(arg0 context.Context, arg1 *service.ApplicationAcceptDTO) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationAccept", arg0, arg1)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationAccept indicates an expected call of ApplicationAccept.
+func (mr *MockIServiceMockRecorder) ApplicationAccept(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationAccept", reflect.TypeOf((*MockIService)(nil).ApplicationAccept), arg0, arg1)
+}
+
+// ApplicationDiscard mocks base method.
+func (m *MockIService) ApplicationDiscard(arg0 context.Context, arg1 *service.ApplicationDiscardDTO) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationDiscard", arg0, arg1)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationDiscard indicates an expected call of ApplicationDiscard.
+func (mr *MockIServiceMockRecorder) ApplicationDiscard(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationDiscard", reflect.TypeOf((*MockIService)(nil).ApplicationDiscard), arg0, arg1)
+}
+
+// ApplicationFormDel mocks base method.
+func (m *MockIService) ApplicationFormDel(arg0 context.Context, arg1 *service.ApplicationFormDelDTO) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationFormDel", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ApplicationFormDel indicates an expected call of ApplicationFormDel.
+func (mr *MockIServiceMockRecorder) ApplicationFormDel(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationFormDel", reflect.TypeOf((*MockIService)(nil).ApplicationFormDel), arg0, arg1)
+}
+
+// ApplicationFormGet mocks base method.
+func (m *MockIService) ApplicationFormGet(arg0 context.Context, arg1 *service.ApplicationFormGetDTO) (*entity.ApplicationForm, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationFormGet", arg0, arg1)
+	ret0, _ := ret[0].(*entity.ApplicationForm)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationFormGet indicates an expected call of ApplicationFormGet.
+func (mr *MockIServiceMockRecorder) ApplicationFormGet(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationFormGet", reflect.TypeOf((*MockIService)(nil).ApplicationFormGet), arg0, arg1)
+}
+
+// ApplicationFormSave mocks base method.
+func (m *MockIService) ApplicationFormSave(arg0 context.Context, arg1 *service.ApplicationFormSaveDTO) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationFormSave", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ApplicationFormSave indicates an expected call of ApplicationFormSave.
+func (mr *MockIServiceMockRecorder) ApplicationFormSave(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationFormSave", reflect.TypeOf((*MockIService)(nil).ApplicationFormSave), arg0, arg1)
+}
+
+// ApplicationGet mocks base method.
+func (m *MockIService) ApplicationGet(arg0 context.Context, arg1 *service.ApplicationGetDTO) (*entity.Application, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationGet", arg0, arg1)
+	ret0, _ := ret[0].(*entity.Application)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationGet indicates an expected call of ApplicationGet.
+func (mr *MockIServiceMockRecorder) ApplicationGet(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationGet", reflect.TypeOf((*MockIService)(nil).ApplicationGet), arg0, arg1)
+}
+
+// ApplicationInsert mocks base method.
+func (m *MockIService) ApplicationInsert(arg0 context.Context, arg1 *service.ApplicationInsertDTO) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationInsert", arg0, arg1)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationInsert indicates an expected call of ApplicationInsert.
+func (mr *MockIServiceMockRecorder) ApplicationInsert(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationInsert", reflect.TypeOf((*MockIService)(nil).ApplicationInsert), arg0, arg1)
+}
+
+// ApplicationSelect mocks base method.
+func (m *MockIService) ApplicationSelect(arg0 context.Context, arg1 *service.ApplicationSelectDTO) ([]entity.Application, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ApplicationSelect", arg0, arg1)
+	ret0, _ := ret[0].([]entity.Application)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ApplicationSelect indicates an expected call of ApplicationSelect.
+func (mr *MockIServiceMockRecorder) ApplicationSelect(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ApplicationSelect", reflect.TypeOf((*MockIService)(nil).ApplicationSelect), arg0, arg1)
 }
 
 // WorkerAdd mocks base method.
